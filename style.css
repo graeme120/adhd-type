@@ -1,0 +1,49 @@
+body {
+  width: 80%;
+  margin: auto;
+}
+
+.area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: auto;
+}
+
+.letterform {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.letterform img {
+  height: 200px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.letterform iframe {
+  position: absolute;
+  left: -250%;
+  bottom: 1%;
+  width: 600%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+video {
+  height: 200px !important;
+  top: 0px !important;
+}
+
+.html5-video-container {
+  height: 200px !important;
+  top: 0px !important;
+}
+
+.line {
+  display: flex;
+}
