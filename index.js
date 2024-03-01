@@ -1,6 +1,6 @@
 // Assuming the JSON file is named 'youtube_video_ids.json' and located at the root or a specific path
-const youtubeIdsPath = "./youtube_video_ids.json"; // Adjust the path as necessary
-const youtubeStartTimesPath = "./youtube_video_start_times.json"; // Adjust the path as necessary
+const youtubeIdsPath = "./youtube_video_ids_alphabet.json"; // Adjust the path as necessary
+const youtubeStartTimesPath = "./youtube_video_start_times_alphabet.json"; // Adjust the path as necessary
 
 // Function to load YouTube video IDs from the JSON file
 async function loadYoutubeVideoIds() {
@@ -24,10 +24,22 @@ function shuffleArraysInSync(arr1, arr2) {
   }
 }
 
+// Function to update SVG files based on folder name
+function updateLetterForms(folderName) {
+  const letterForms = document.querySelectorAll(".letterform");
+  letterForms.forEach((letterForm) => {
+    const img = letterForm.querySelector("img");
+    const letter = img.src.split("/").pop().split(".")[0]; // Extract the letter name from the current img src
+    img.src = `./${folderName}/${letter}.svg`;
+    letterForm.style.maskImage = `url(./${folderName}/${letter}.svg)`;
+  });
+}
+
 // Global variable to store the YouTube IDs and start times
 let youtubeVideoIds = [];
 let youtubeVideoStartTimes = [];
 let currentIndex = 0; // Keep track of the current index in the shuffled arrays
+let currentFontFolder = "alphabet-impact"; // Keep track of the current font folder
 
 // Load the YouTube video IDs once, shuffle, and store them
 document.addEventListener("DOMContentLoaded", async () => {
@@ -50,7 +62,9 @@ document.addEventListener("keydown", function (event) {
 
     const img = document.createElement("img");
     img.src =
-      event.code === "Space" ? `./alphabet/SPACE.svg` : `./alphabet/${key}.svg`;
+      event.code === "Space"
+        ? `./${currentFontFolder}/SPACE.svg`
+        : `./${currentFontFolder}/${key}.svg`;
 
     // Use the current index to get a YouTube video ID and start time, then increment the index
     const videoId = youtubeVideoIds[currentIndex];
@@ -62,8 +76,8 @@ document.addEventListener("keydown", function (event) {
 
     letterForm.style.maskImage =
       event.code === "Space"
-        ? `url(./alphabet/SPACE.svg)`
-        : `url(./alphabet/${key}.svg)`;
+        ? `url(./${currentFontFolder}/SPACE.svg)`
+        : `url(./${currentFontFolder}/${key}.svg)`;
     letterForm.style.maskSize = "cover";
 
     letterForm.appendChild(img);
@@ -76,4 +90,25 @@ document.addEventListener("keydown", function (event) {
       area.removeChild(lastLetterForm);
     }
   }
+});
+
+// Event listeners for buttons to change font types
+document.getElementById("type1").addEventListener("click", function () {
+  currentFontFolder = "alphabet-impact";
+  updateLetterForms(currentFontFolder);
+});
+
+document.getElementById("type2").addEventListener("click", function () {
+  currentFontFolder = "alphabet-times-new-roman";
+  updateLetterForms(currentFontFolder);
+});
+
+document.getElementById("type3").addEventListener("click", function () {
+  currentFontFolder = "alphabet-papyrus";
+  updateLetterForms(currentFontFolder);
+});
+
+document.getElementById("type4").addEventListener("click", function () {
+  currentFontFolder = "alphabet-arial";
+  updateLetterForms(currentFontFolder);
 });

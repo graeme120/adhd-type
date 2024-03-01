@@ -3,6 +3,25 @@ body {
   margin: auto;
 }
 
+#type-options {
+  position: absolute;
+  top: 2.5%;
+  left: 0.5%;
+  width: 100%;
+  font-family: arial;
+  font-size: 24px;
+}
+
+#type-options span {
+  padding: 1% 1%;
+  opacity: 0.5;
+}
+
+#type-options span:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
 .area {
   display: flex;
   justify-content: center;
@@ -19,7 +38,7 @@ body {
 }
 
 .letterform img {
-  height: 200px;
+  height: 100px;
   opacity: 0;
   overflow: hidden;
 }
@@ -35,12 +54,12 @@ body {
 }
 
 video {
-  height: 200px !important;
+  height: 150px !important;
   top: 0px !important;
 }
 
 .html5-video-container {
-  height: 200px !important;
+  height: 150px !important;
   top: 0px !important;
 }
 

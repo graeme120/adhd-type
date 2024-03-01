@@ -1,6 +1,6 @@
 // Assuming the JSON file is named 'youtube_video_ids.json' and located at the root or a specific path
-const youtubeIdsPath = "./youtube_video_ids.json"; // Adjust the path as necessary
-const youtubeStartTimesPath = "./youtube_video_start_times.json"; // Adjust the path as necessary
+const youtubeIdsPath = "./youtube_video_ids_alphabet.json"; // Adjust the path as necessary
+const youtubeStartTimesPath = "./youtube_video_start_times_alphabet.json"; // Adjust the path as necessary
 
 // Function to load YouTube video IDs from the JSON file
 async function loadYoutubeVideoIds() {
@@ -15,7 +15,7 @@ async function loadYoutubeVideoStartTimes() {
   return times;
 }
 
-// Global variable to store the YouTube IDs
+// Global variable to store the YouTube IDs and start times
 let youtubeVideoIds = [];
 let youtubeVideoStartTimes = [];
 
@@ -39,20 +39,25 @@ document.addEventListener("keydown", function (event) {
 
     const img = document.createElement("img");
     img.src =
-      event.code === "Space" ? `./alphabet/SPACE.svg` : `./alphabet/${key}.svg`;
+      event.code === "Space"
+        ? `./alphabet-impact/SPACE.svg`
+        : `./alphabet-impact/${key}.svg`;
 
-    // Randomly pick a YouTube video ID from the loaded list
-    const randomIndex = Math.floor(Math.random() * youtubeVideoIds.length);
-    const videoId = youtubeVideoIds[randomIndex];
-    const videoStartTime = youtubeVideoStartTimes[randomIndex];
+    // Determine the index based on the letter pressed (A=0, B=1, ..., Z=25)
+    const letterIndex =
+      event.code === "Space" ? 26 : key.charCodeAt(0) - "A".charCodeAt(0);
+
+    // Use the letter index to get a YouTube video ID and start time
+    const videoId = youtubeVideoIds[letterIndex];
+    const videoStartTime = youtubeVideoStartTimes[letterIndex];
 
     const iframe = document.createElement("iframe");
     iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&amp;controls=0&amp;start=${videoStartTime}`;
 
     letterForm.style.maskImage =
       event.code === "Space"
-        ? `url(./alphabet/SPACE.svg)`
-        : `url(./alphabet/${key}.svg)`;
+        ? `url(./alphabet-impact/SPACE.svg)`
+        : `url(./alphabet-impact/${key}.svg)`;
     letterForm.style.maskSize = "cover";
 
     letterForm.appendChild(img);
