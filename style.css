@@ -38,7 +38,7 @@ body {
 }
 
 .letterform img {
-  height: 100px;
+  height: 200px;
   opacity: 0;
   overflow: hidden;
 }
